@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using GameProject1.Enums;
 using CollisionExample.Collisions;
 
-namespace GameProject1.Content
+namespace GameProject1
 {
 
     public class KnightSprite

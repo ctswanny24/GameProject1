@@ -1,0 +1,22 @@
+All of the assets in Content/FreeKnight_v1 contains numerous sprites made by aamatniekss published onto itch.io. (https://aamatniekss.itch.io/fantasy-knight-free-pixelart-animated-character) These were released for free on his profile on Itch.io
+This folder contains the pngs used:
+	FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets
+		_Attack2NoMovement.png
+		_CrouchFull.png
+		_Run.png
+		_TurnAround.png
+
+All of the assets in Content/OakWoodsAssets contains numerous sprites made by the creator Brullov Studios on Itch.io. (https://brullov.itch.io/oak-woods) These assets were released to brullov's profile for free to be downloaded
+This folder contains the pngs used:
+	OakWoodsAssets/oak_woods_v1.0
+		oak_woods_tileset.png
+		decorations/shop_anim.png
+		background/background_layer_1.png
+		background/background_layer_2.png
+		background/background_layer_3.png
+
+Content/Algerian is a font that was included in the basic Windows font package
+
+Content/Arial is a font that was included in the basic Windows font package
+
+CollisionBox_Knight.png is a creation by Caden Swanson used for troubleshooting collision rectangle troubles released under public domain (i think)

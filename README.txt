@@ -1,1 +1,0 @@
-FreeKnight_v1 Folder contains numerous sprites made by aamatniekss published onto itch.io. (https://aamatniekss.itch.io/fantasy-knight-free-pixelart-animated-character)
