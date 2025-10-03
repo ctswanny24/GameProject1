@@ -15,8 +15,16 @@ This folder contains the pngs used:
 		background/background_layer_2.png
 		background/background_layer_3.png
 
+Collision.wav was created by Caden Swanson using the bfxr online tool (https://www.bfxr.net/)
+
 Content/Algerian is a font that was included in the basic Windows font package
 
 Content/Arial is a font that was included in the basic Windows font package
 
 CollisionBox_Knight.png is a creation by Caden Swanson used for troubleshooting collision rectangle troubles released under public domain (i think)
+
+Jon Sheumaker - Autumn's Awakening.mp3 is a royalty free song posted to Free Music Archive that was posted under Jon Sheumaker's account (https://freemusicarchive.org/music/jon-shuemaker/autumns-awakening/autumns-awakening/)
+
+VictoryChime.mp3 is a sound effect downloaded under free use on Pixabay. It was created by the account Scratchonix (https://pixabay.com/sound-effects/victory-chime-366449/)
+
+Hawkin - Woods.mp3 is a royalty free song posted onto Free Music Archive by a user of the name Hawkin (https://freemusicarchive.org/music/Hawkin/Woods/Woods/)

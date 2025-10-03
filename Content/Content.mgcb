@@ -27,6 +27,24 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
+#begin blank.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:blank.png
+
+#begin collision.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:collision.wav
+
 #begin CollisionBox_Knight.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -399,6 +417,37 @@
 /processorParam:TextureFormat=Color
 /build:FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallSlide.png
 
+#begin Hawkin - Woods.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Hawkin - Woods.mp3
+
+#begin Jon Shuemaker - Autumn's Awakening.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Jon Shuemaker - Autumn's Awakening.mp3
+
+#begin menufont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:menufont.spritefont
+
+#begin messageBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:messageBox.png
+
 #begin OakWoodsAssets/oak_woods_v1.0/background/background_layer_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -602,4 +651,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:OakWoodsAssets/oak_woods_v1.0/oak_woods_tileset.png
+
+#begin VictoryChime.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:VictoryChime.mp3
 

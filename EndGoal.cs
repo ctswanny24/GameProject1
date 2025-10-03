@@ -14,7 +14,6 @@ namespace GameProject1
     {
         private int spriteWidth = 118;
         private int spriteHeight = 128;
-        private Vector2 position;
         private float spriteScale = 2.0f;
 
         private Texture2D texture;
@@ -29,6 +28,8 @@ namespace GameProject1
         /// The bounding volume of the sprite
         /// </summary>
         public BoundingRectangle Bounds => bounds;
+        
+        public Vector2 Position;
 
         /// <summary>
         /// Creates a new coin sprite
@@ -36,14 +37,14 @@ namespace GameProject1
         /// <param name="position">The position of the sprite in the game</param>
         public EndGoal(Vector2 position)
         {
-            this.position = position;
+            this.Position = position;
             // The issue lies in the calculation of the bounds' position. The position of the bounding rectangle is being offset incorrectly.
             // Instead of subtracting half the scaled width and height, you should adjust the bounds' position to align with the sprite's center.
 
             this.bounds = new BoundingRectangle(
                 new Vector2(
-                    this.position.X,
-                    this.position.Y
+                    this.Position.X,
+                    this.Position.Y
                 ),
                 spriteWidth * spriteScale,
                 spriteHeight * spriteScale
@@ -68,7 +69,7 @@ namespace GameProject1
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Rectangle source = FindAnimationFrame(gameTime, texture.Width / spriteWidth);
-            spriteBatch.Draw(texture, position, source, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(texture, Position, source, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
             //spriteBatch.Draw(texture, new Vector2(this.position.X, this.position.Y), source, Color.DarkRed, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
         }
 
