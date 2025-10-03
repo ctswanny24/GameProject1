@@ -13,7 +13,7 @@ namespace GameProject1
 {
     public class Obstacle
     {
-        private Vector2 position;
+        public Vector2 Position;
 
         private Texture2D texture;
 
@@ -30,7 +30,7 @@ namespace GameProject1
         /// <param name="position">The position of the sprite in the game</param>
         public Obstacle(Vector2 position)
         {
-            this.position = position;
+            this.Position = position;
             this.bounds = new BoundingRectangle(position, 27 * 2.0f, 12 * 2.0f);
         }
 
@@ -51,7 +51,7 @@ namespace GameProject1
         /// <param name="spriteBatch">The spritebatch to render with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(texture, Position, null, Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
         }
     }
 }
