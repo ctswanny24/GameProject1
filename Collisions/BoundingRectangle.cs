@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace CollisionExample.Collisions
+namespace GameProject1
 {
     /// <summary>
     /// A bounding rectangle for collision detection

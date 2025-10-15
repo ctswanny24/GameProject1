@@ -68,7 +68,7 @@ namespace GameProject1.Screens
         {
             var spriteBatch = ScreenManager.SpriteBatch;
             var viewport = ScreenManager.GraphicsDevice.Viewport;
-            int backgroundLen = 400;
+            float backgroundLen = (296.5f * 2.7f);
             var fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
             //spriteBatch.Begin();
@@ -85,7 +85,7 @@ namespace GameProject1.Screens
             spriteBatch.Begin(transformMatrix: transform);
             for(int i = 0; i < 6; i++)
             {
-                fullscreen = new Rectangle(i * backgroundLen, 0, viewport.Width, viewport.Height);
+                fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
                 spriteBatch.Draw(backgrounds[0], fullscreen,
                     new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
             }
@@ -95,7 +95,7 @@ namespace GameProject1.Screens
             spriteBatch.Begin(transformMatrix: transform);
             for (int i = 0; i < 6; i++)
             {
-                fullscreen = new Rectangle(i * backgroundLen, 0, viewport.Width, viewport.Height);
+                fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
                 spriteBatch.Draw(backgrounds[1], fullscreen,
                     new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
             }
@@ -105,7 +105,7 @@ namespace GameProject1.Screens
             spriteBatch.Begin(transformMatrix: transform);
             for (int i = 0; i < 6; i++)
             {
-                fullscreen = new Rectangle(i * backgroundLen, 0, viewport.Width, viewport.Height);
+                fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
                 spriteBatch.Draw(backgrounds[2], fullscreen,
                     new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
             }

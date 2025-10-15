@@ -88,6 +88,18 @@ namespace GameProject1.StateManagement
         /// </remarks>
         public PlayerIndex? ControllingPlayer { protected get; set; }
 
+        public Game GameInstance { get; set; }
+
+        public GameScreen()
+        {
+
+        }
+
+        public GameScreen(Game game)
+        {
+            GameInstance = game;
+        }
+
         /// <summary>
         /// Activates the screen.  Called when the screen is added to the screen manager 
         /// or the game returns from being paused.

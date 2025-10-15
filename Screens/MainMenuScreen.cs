@@ -8,9 +8,12 @@ namespace GameProject1.Screens
     public class MainMenuScreen : MenuScreen
     {
         private Song menuSong;
+        private Game _game;
 
-        public MainMenuScreen() : base("GET TO THE SHOP")
+        public MainMenuScreen(Game game) : base("GET TO THE SHOP")
         {
+            _game = game;
+
             var playGameMenuEntry = new MenuEntry("Play Game");
             //var optionsMenuEntry = new MenuEntry("Options (Currently Under Development)");
             var exitMenuEntry = new MenuEntry("Exit");
@@ -26,7 +29,8 @@ namespace GameProject1.Screens
 
         private void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            MinigameScreen newGame = new MinigameScreen(ScreenManager.GraphicsDevice);
+            RockslideMinigame newGame = new RockslideMinigame(ScreenManager.GraphicsDevice, _game);
+            //MinigameScreen newGame = new MinigameScreen(ScreenManager.GraphicsDevice);
             newGame.Initialize();
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, newGame);
         }

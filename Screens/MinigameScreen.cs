@@ -32,6 +32,7 @@ namespace GameProject1.Screens
         private Song victoryTone;
         private SoundEffect collision;
         private float soundTimer = 1;
+        private Game _game;
 
 
         private bool closeGame = false;
@@ -49,8 +50,9 @@ namespace GameProject1.Screens
 
         private bool playedBefore = false;
 
-        public MinigameScreen(GraphicsDevice graphics)
+        public MinigameScreen(GraphicsDevice graphics, Game game)
         {
+            _game = game;
             this.graphics = graphics;
             backgrounds = new Texture2D[3];
 
@@ -139,7 +141,7 @@ namespace GameProject1.Screens
                     endingTime += gameTime.ElapsedGameTime.TotalSeconds;
                     if (endingTime > 4.2)
                     {
-                        LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(), new MainMenuScreen());
+                        LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(), new MainMenuScreen(_game));
                     }
                 }
 
@@ -193,7 +195,7 @@ namespace GameProject1.Screens
             PlayerIndex player;
             if(_pauseAction.Occurred(input, ControllingPlayer, out player))
             {
-                ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
+                ScreenManager.AddScreen(new PauseMenuScreen(_game), ControllingPlayer);
             }
         }
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollisionExample.Collisions
+namespace GameProject1
 {
 
     public static class CollisionHelper

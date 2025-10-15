@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Content;
 using InputExample;
 using Microsoft.Xna.Framework.Input;
 using GameProject1.Enums;
-using CollisionExample.Collisions;
 
 namespace GameProject1
 {
