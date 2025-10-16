@@ -32,3 +32,5 @@ Hawkin - Woods.mp3 is a royalty free song posted onto Free Music Archive by a us
 8bit_bomb_explosion.wav is a royalty free sound effect file that I downloaded from OpenGameArt.org. It was posted to OpenGameArt.org by Luke.RUSTLTD on Friday October 1, 2010 (https://opengameart.org/content/bombexplosion8bit)
 
 All of the assets in the CaveAssets folder contain hundreds of sprites posted on to CraftPix.net. I cannot find any original uploader of these assets, but will update this if I eventually find them (https://craftpix.net/freebies/free-dungeon-platformer-pixel-art-tileset/?num=1&count=52&sq=cave&pos=14)
+
+Oneosune - Silent Realm.mp3 is a song file of type CC BY-NC-ND. Downloaded from free music archive, uploaded by Oneosune (https://freemusicarchive.org/music/oneosune/silent-temple/silent-realmmp3/)
