@@ -108,7 +108,7 @@ namespace GameProject1
             freeParticles = new Queue<int>(maxParticles);
             for (int i = 0; i < particles.Length; i++)
             {
-                particles[i].Initialize(Vector2.Zero);
+                particles[i].Initialize(new Vector2(-30, -30));
                 freeParticles.Enqueue(i);
             }
             // Run the InitializeConstants hook
@@ -299,6 +299,8 @@ namespace GameProject1
         }
 
         #endregion
+
+
 
         public void StopParticles()
         {

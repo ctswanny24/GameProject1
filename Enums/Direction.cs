@@ -12,5 +12,6 @@ namespace GameProject1.Enums
         Right = 1,
         Up = 2,
         Left = 3,
+        None = 4
     }
 }

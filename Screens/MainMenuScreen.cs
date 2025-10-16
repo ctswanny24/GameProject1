@@ -10,7 +10,7 @@ namespace GameProject1.Screens
         private Song menuSong;
         private Game _game;
 
-        public MainMenuScreen(Game game) : base("GET TO THE SHOP")
+        public MainMenuScreen(Game game) : base("Rockslide Riot")
         {
             _game = game;
 
@@ -29,6 +29,7 @@ namespace GameProject1.Screens
 
         private void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
+            MediaPlayer.Stop();
             RockslideMinigame newGame = new RockslideMinigame(ScreenManager.GraphicsDevice, _game);
             //MinigameScreen newGame = new MinigameScreen(ScreenManager.GraphicsDevice);
             newGame.Initialize();

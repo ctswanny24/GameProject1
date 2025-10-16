@@ -15,7 +15,7 @@ namespace GameProject1.ParticleSystems
 
         public bool Occurring { get; set; } = false;
 
-        public RockslideParticleSystem(Game game, Rectangle source) : base(game, 25)
+        public RockslideParticleSystem(Game game, Rectangle source) : base(game, 20)
         {
             _source = source;
         }
@@ -29,9 +29,17 @@ namespace GameProject1.ParticleSystems
 
         protected override void InitializeParticle(ref Particle p, Vector2 where)
         {
-            p.Initialize(where, Vector2.UnitY * 150, Vector2.Zero, Color.White, scale: 1.0f, rotation: p.Rotation, lifetime: 4f);
-            SetBoundingCircles(16, 16);
-            p.Rotation += (float)(Math.PI/6);
+            Vector2 position = where;
+            Vector2 velocity = Vector2.UnitY * 200;
+            Vector2 acceleration = Vector2.Zero;
+            Color color = Color.White;
+            float scale = 1.5f;
+            float rotation = 0f;
+            float angularVelocity = 2f;
+            float angularAccel = 0f;
+
+            p.Initialize(position, velocity, acceleration, color, lifetime: 4.0f, scale, rotation, angularVelocity: angularVelocity, angularAcceleration: angularAccel);
+            SetBoundingCircles(16 * scale, 16 * scale);
         }
 
         public override void Update(GameTime gameTime)

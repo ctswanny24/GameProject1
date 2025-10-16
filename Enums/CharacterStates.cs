@@ -13,5 +13,6 @@ namespace GameProject1.Enums
         Turning = 2,
         Crouching = 3,
         Attacking = 4,
+        Dead = 5
     }
 }
