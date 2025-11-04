@@ -19,6 +19,7 @@ namespace GameProject1.Player
         private MouseState _prevMouseState;
         private int _spriteWidth = 48;
         private int _spriteHeight = 48;
+        private GraphicsDevice _graphics;
 
         public Vector2 Position;
         public BoundingRectangle Bounds;
@@ -29,21 +30,23 @@ namespace GameProject1.Player
         public ContentManager Content;
         public float chargeTime;
 
-        public BowlingBallMan()
+        public BowlingBallMan(GraphicsDevice graphics)
         {
+            _graphics = graphics;
             Sprites = new List<Texture2D>();
             Projectiles = new List<Projectile>();
             Health = 3;
-            Bounds = new BoundingRectangle(new Vector2(Position.X - (_spriteWidth / 2), Position.Y - (_spriteHeight / 2)), _spriteWidth, _spriteHeight);
+            Bounds = new BoundingRectangle(new Vector2(Position.X, Position.Y), _spriteWidth, _spriteHeight);
         }
 
-        public BowlingBallMan(Vector2 position, int health)
+        public BowlingBallMan(Vector2 position, int health, GraphicsDevice graphics)
         {
+            _graphics = graphics;
             Sprites = new List<Texture2D>();
             Projectiles = new List<Projectile>();
             Position = position;
             Health = health;
-            Bounds = new BoundingRectangle(new Vector2(Position.X - (_spriteWidth / 2), Position.Y - (_spriteHeight / 2)), _spriteWidth, _spriteHeight);
+            Bounds = new BoundingRectangle(new Vector2(Position.X, Position.Y), _spriteWidth, _spriteHeight);
 
         }
 
@@ -57,9 +60,19 @@ namespace GameProject1.Player
         public void Update(GameTime gameTime)
         {
             HandleInput();
+            List<Projectile> toRemove = new List<Projectile>();
             foreach(Projectile p in Projectiles)
             {
                 p.Update(gameTime);
+                if(p.Position.X > _graphics.Viewport.Width + 48)
+                {
+                    toRemove.Add(p);
+                    break;
+                }
+            }
+            foreach(Projectile p in toRemove)
+            {
+                Projectiles.Remove(p);
             }
         }
 
@@ -104,10 +117,7 @@ namespace GameProject1.Player
             {
                 Position += new Vector2(0, 5);
             }
-            if (state.IsKeyDown(Keys.F))
-            {
-                SaveStateManager.SaveGame(new SaveData(Position.X, Position.Y, Health));
-            }
+
             if ((_mouseState.LeftButton == ButtonState.Pressed && _prevMouseState.LeftButton != ButtonState.Pressed) || (state.IsKeyDown(Keys.Space) && !_prevKeyboardState.IsKeyDown(Keys.Space)))
             {
                 Projectiles.Add(new Projectile(Position, Content));

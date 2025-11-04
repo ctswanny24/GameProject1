@@ -17,38 +17,39 @@ namespace GameProject1
         private KeyboardState _keyboardState;
         private MouseState _mouseState;
         private MouseState _prevMouseState;
-        private int _spriteWidth = 48;
+        private int _spriteWidth = 32;
         private int _spriteHeight = 48;
 
         public Vector2 Position;
         public BoundingRectangle Bounds;
-        public List<Texture2D> Sprites;
+        public Texture2D Texture;
         public int Health;
 
         public ContentManager Content;
         public float chargeTime;
+        public bool Dead;
 
         public Villian()
         {
-            Sprites = new List<Texture2D>();
             Position = new Vector2(300, 300);
             Health = 3;
             Bounds = new BoundingRectangle(new Vector2(Position.X, Position.Y), _spriteWidth, _spriteHeight);
+            Dead = false;
         }
 
         public Villian(Vector2 position, int health)
         {
-            Sprites = new List<Texture2D>();
             Position = position;
             Health = health;
             Bounds = new BoundingRectangle(new Vector2(Position.X, Position.Y), _spriteWidth, _spriteHeight);
+            Dead = false;
 
         }
 
         public void LoadContent(ContentManager content)
         {
             Content = content;
-            Sprites.Add(content.Load<Texture2D>("Textures//EvilBowlingPin"));
+            Texture = content.Load<Texture2D>("Textures//EvilBowlingPin");
         }
 
         public void Update(GameTime gameTime)
@@ -58,7 +59,8 @@ namespace GameProject1
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprites[0], Position, Color.White);
+            if(Texture != null)
+                spriteBatch.Draw(Texture, Position, Color.White);
             //for(int i = Health; i > 0; i--)
             //{
             //    spriteBatch.Draw(Sprites[1], new Vector2(Health * 25, 0), Color.White);
@@ -92,10 +94,6 @@ namespace GameProject1
             if (state.IsKeyDown(Keys.S))
             {
                 Position += new Vector2(0, 5);
-            }
-            if (state.IsKeyDown(Keys.F))
-            {
-                SaveStateManager.SaveGame(new SaveData(Position.X, Position.Y, Health));
             }
         }
     }

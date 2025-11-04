@@ -12,13 +12,16 @@ namespace GameProject1.Saving
         public float PlayerX { get; set; }
         public float PlayerY { get; set; }
 
+        public List<Tuple<float, float, bool>> Villians { get; set; }
+
         public int PlayerHealth { get; set; }
 
-        public SaveData(float PlayerX, float PlayerY, int PlayerHealth)
+        public SaveData(float PlayerX, float PlayerY, int PlayerHealth, List<Tuple<float, float, bool>> villians)
         {
             this.PlayerX = PlayerX;
             this.PlayerY = PlayerY;
             this.PlayerHealth = PlayerHealth;
+            Villians = villians;
         }
     }
 }

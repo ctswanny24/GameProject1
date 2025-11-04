@@ -31,20 +31,25 @@ namespace GameProject1
         /// <param name="a">First rectangle</param>
         /// <param name="b">Second rectangle</param>
         /// <returns>true if collision, false otherwise</returns>
-        public static bool Collides(BoundingRectangle a, BoundingRectangle b)
+        public static bool Collides(BoundingRectangle r1, BoundingRectangle r2)
         {
-            if(!((a.Right < b.Left) || (a.Left > b.Right)))
-            {
-                if (a.Right > b.Left && a.Left < b.Left)
-                {
-                    return true;
-                }
-                else if (a.Left < b.Right && a.Right > b.Right)
-                {
-                    return true; 
-                }
-            }
-                return false;
+            return !(r1.X + r1.Width < r2.X    // r1 is to the left of r2
+            || r1.X > r2.X + r2.Width     // r1 is to the right of r2
+            || r1.Y + r1.Height < r2.Y    // r1 is above r2 
+            || r1.Y > r2.Y + r2.Height);
+
+            //if(!((a.Right < b.Left) || (a.Left > b.Right)))
+            //{
+            //    if (a.Right > b.Left && a.Left < b.Left)
+            //    {
+            //        return true;
+            //    }
+            //    else if (a.Left < b.Right && a.Right > b.Right)
+            //    {
+            //        return true; 
+            //    }
+            //}
+            //    return false;
         }
 
         /// <summary>

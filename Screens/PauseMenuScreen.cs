@@ -2,6 +2,8 @@
 using GameProject1.Saving;
 using GameProject1.StateManagement;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace GameProject1.Screens
 {
@@ -13,6 +15,7 @@ namespace GameProject1.Screens
     {
         private Game _game;
         private BowlingBallMan _player;
+        private List<Villian> _villians;
 
         public PauseMenuScreen(Game game) : base("Paused")
         {
@@ -27,10 +30,11 @@ namespace GameProject1.Screens
             MenuEntries.Add(quitGameMenuEntry);
         }
 
-        public PauseMenuScreen(Game game, BowlingBallMan player) : base("Paused")
+        public PauseMenuScreen(Game game, BowlingBallMan player, List<Villian> villians) : base("Paused")
         {
             _game = game;
             _player = player;
+            _villians = villians;
             var resumeGameMenuEntry = new MenuEntry("Resume Game");
             var saveGameMenuEntry = new MenuEntry("Save Game");
             var quitGameMenuEntry = new MenuEntry("Quit Game");
@@ -47,7 +51,10 @@ namespace GameProject1.Screens
 
         private void OnSave(object sender, PlayerIndexEventArgs e)
         {
-            SaveStateManager.SaveGame(new SaveData(_player.Position.X, _player.Position.Y, _player.Health));
+            List<Tuple<float, float, bool>> villianInfo = new List<Tuple<float, float, bool>>();
+            foreach (Villian v in _villians)
+                villianInfo.Add(new Tuple<float, float, bool>(v.Position.X, v.Position.Y, v.Dead));
+            SaveStateManager.SaveGame(new SaveData(_player.Position.X, _player.Position.Y, _player.Health, villianInfo));
         }
 
         private void QuitGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)

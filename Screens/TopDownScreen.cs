@@ -21,6 +21,7 @@ namespace GameProject1.Screens
 {
     public class TopDownScreen : GameScreen
     {
+        private Random random = new Random();
         private GraphicsDevice _graphics;
         private SpriteFont _font;
         private Game _game;
@@ -28,9 +29,11 @@ namespace GameProject1.Screens
         private SpriteBatch _spriteBatch;
         private ContentManager _content;
         private BowlingBallMan player;
+        private List<Villian> _villians;
         private Villian villian;
         private SaveData _saveData;
         private readonly InputAction _pauseAction;
+        private float endCounter = 0;
 
         public TopDownScreen(GraphicsDevice graphics, Game game, SaveData save)
         {
@@ -42,13 +45,27 @@ namespace GameProject1.Screens
             _saveData = save;
             if(_saveData == null)
             {
-                player = new BowlingBallMan();
+                player = new BowlingBallMan(_graphics);
             }
             else
             {
-                player = new BowlingBallMan(new Vector2(_saveData.PlayerX, _saveData.PlayerY), _saveData.PlayerHealth);
+                player = new BowlingBallMan(new Vector2(_saveData.PlayerX, _saveData.PlayerY), _saveData.PlayerHealth, _graphics);
             }
-            villian = new Villian();
+            _villians = new List<Villian>();
+            if(save == null)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    _villians.Add(new Villian(new Vector2(random.NextInt64(0, _graphics.Viewport.Width), random.NextInt64(0, _graphics.Viewport.Height - 48)), 1));
+                }
+            }
+            else
+            {
+                foreach (Tuple<float, float, bool> i in save.Villians)
+                {
+                    _villians.Add(new Villian(new Vector2(i.Item1, i.Item2), 1) { Dead = i.Item3 });
+                }
+            }
         }
 
         public void Initialize()
@@ -61,7 +78,10 @@ namespace GameProject1.Screens
             _spriteBatch = new SpriteBatch(_graphics);
             _tilemap.LoadContent(_game.Content);
             player.LoadContent(_game.Content);
-            villian.LoadContent(_game.Content);
+            foreach(Villian v in _villians)
+            {
+                v.LoadContent(_game.Content);
+            }
             if (_content == null)
             {
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
@@ -82,20 +102,49 @@ namespace GameProject1.Screens
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
-            player.Update(gameTime);
-            foreach(Projectile p in player.Projectiles)
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
             {
-                if(CollisionHelper.Collides(p.Bounds, villian.Bounds))
-                {
-                    villian.Health--;
-                }
+                List<Tuple<float, float, bool>> villianInfo = new List<Tuple<float, float, bool>>();
+                foreach (Villian v in _villians)
+                    villianInfo.Add(new Tuple<float, float, bool>(v.Position.X, v.Position.Y, v.Dead));
+                SaveStateManager.SaveGame(new SaveData(player.Position.X, player.Position.Y, player.Health, villianInfo));
+            }
 
-            }
-            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
-            if(villian.Health <= 0)
+
+            player.Update(gameTime);
+            foreach(Villian v in _villians)
             {
-                _game.Exit();
+                foreach(Projectile p in player.Projectiles)
+                {
+                    if(CollisionHelper.Collides(p.Bounds, v.Bounds))
+                    {
+                        v.Dead = true;
+                    } 
+                }
             }
+            List<Villian> toRemove = new List<Villian>();
+            foreach (Villian v in _villians)
+                if (v.Dead) toRemove.Add(v);
+            foreach (Villian v in toRemove)
+                _villians.Remove(v);
+
+            if(_villians.Count == 0)
+            {
+                endCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if(endCounter > 1.5)
+                {
+                    ExitScreen();
+                    ScreenManager.AddScreen(new BackgroundScreen(), null);
+                    ScreenManager.AddScreen(new MainMenuScreen(_game), null);
+
+                }
+                //for (int i = 0; i < 3; i++)
+                //{
+                //    _villians.Add(new Villian(new Vector2(random.NextInt64(0, _graphics.Viewport.Width), random.NextInt64(0, _graphics.Viewport.Height - 48)), 1));
+                //}
+            }
+
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
         public override void HandleInput(GameTime gameTime, InputState input)
@@ -104,7 +153,7 @@ namespace GameProject1.Screens
             PlayerIndex player;
             if (_pauseAction.Occurred(input, ControllingPlayer, out player))
             {
-                ScreenManager.AddScreen(new PauseMenuScreen(_game, this.player), ControllingPlayer);
+                ScreenManager.AddScreen(new PauseMenuScreen(_game, this.player, _villians), ControllingPlayer);
             }
         }
 
@@ -114,7 +163,13 @@ namespace GameProject1.Screens
             _tilemap.Draw(gameTime, _spriteBatch);
             _spriteBatch.DrawString(_font, "Press 'F' to Save your game, or use 'ESC' to navigate to the menu and save there", new Vector2(0, _graphics.Viewport.Height - 30), Color.White);
             player.Draw(gameTime, _spriteBatch);
-            villian.Draw(gameTime, _spriteBatch);
+            if(_villians.Count != 0)
+            {
+                foreach(Villian v in _villians)
+                {
+                    v.Draw(gameTime, _spriteBatch);
+                }
+            }
             _spriteBatch.End();
             base.Draw(gameTime);
         }
