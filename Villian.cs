@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameProject1.Player
+namespace GameProject1
 {
-    public class BowlingBallMan
+    public class Villian
     {
         private KeyboardState _prevKeyboardState;
         private KeyboardState _keyboardState;
@@ -23,53 +23,42 @@ namespace GameProject1.Player
         public Vector2 Position;
         public BoundingRectangle Bounds;
         public List<Texture2D> Sprites;
-        public List<Projectile> Projectiles;
         public int Health;
 
         public ContentManager Content;
         public float chargeTime;
 
-        public BowlingBallMan()
+        public Villian()
         {
             Sprites = new List<Texture2D>();
-            Projectiles = new List<Projectile>();
+            Position = new Vector2(300, 300);
             Health = 3;
-            Bounds = new BoundingRectangle(new Vector2(Position.X - (_spriteWidth / 2), Position.Y - (_spriteHeight / 2)), _spriteWidth, _spriteHeight);
+            Bounds = new BoundingRectangle(new Vector2(Position.X, Position.Y), _spriteWidth, _spriteHeight);
         }
 
-        public BowlingBallMan(Vector2 position, int health)
+        public Villian(Vector2 position, int health)
         {
             Sprites = new List<Texture2D>();
-            Projectiles = new List<Projectile>();
             Position = position;
             Health = health;
-            Bounds = new BoundingRectangle(new Vector2(Position.X - (_spriteWidth / 2), Position.Y - (_spriteHeight / 2)), _spriteWidth, _spriteHeight);
+            Bounds = new BoundingRectangle(new Vector2(Position.X, Position.Y), _spriteWidth, _spriteHeight);
 
         }
 
         public void LoadContent(ContentManager content)
         {
             Content = content;
-            Sprites.Add(content.Load<Texture2D>("Textures//BarryBowlingBall"));
-            Sprites.Add(content.Load<Texture2D>("Textures//CaveAssets//Items//000_0060_heart6"));
+            Sprites.Add(content.Load<Texture2D>("Textures//EvilBowlingPin"));
         }
 
         public void Update(GameTime gameTime)
         {
             HandleInput();
-            foreach(Projectile p in Projectiles)
-            {
-                p.Update(gameTime);
-            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Sprites[0], Position, Color.White);
-            foreach(Projectile p in Projectiles)
-            {
-                p.Draw(gameTime, spriteBatch);
-            }
             //for(int i = Health; i > 0; i--)
             //{
             //    spriteBatch.Draw(Sprites[1], new Vector2(Health * 25, 0), Color.White);
@@ -107,10 +96,6 @@ namespace GameProject1.Player
             if (state.IsKeyDown(Keys.F))
             {
                 SaveStateManager.SaveGame(new SaveData(Position.X, Position.Y, Health));
-            }
-            if ((_mouseState.LeftButton == ButtonState.Pressed && _prevMouseState.LeftButton != ButtonState.Pressed) || (state.IsKeyDown(Keys.Space) && !_prevKeyboardState.IsKeyDown(Keys.Space)))
-            {
-                Projectiles.Add(new Projectile(Position, Content));
             }
         }
     }

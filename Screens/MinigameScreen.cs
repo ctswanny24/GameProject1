@@ -147,45 +147,45 @@ namespace GameProject1.Screens
 
                 // TODO: Add your update logic here
                 knight.Update(gameTime);
-                if (obstacle.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.None)
-                {
-                    knight.Colliding = false;
-                    knight.AllowLeft = true;
-                    knight.AllowRight = true;
-                }
-                else if (obstacle.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.Left)
-                {
-                    if (!playedBefore && inBetweenSounds >= soundTimer)
-                    {
-                        collision.Play();
-                        playedBefore = true;
-                        inBetweenSounds = 0;
-                    }
-                    knight.InputManager.State = Enums.CharacterStates.Idle;
-                    knight.Colliding = true;
-                    knight.AllowLeft = false;
-                    knight.AllowRight = true;
-                }
-                else if (obstacle.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.Right)
-                {
-                    if (!playedBefore && inBetweenSounds >= soundTimer)
-                    {
-                        collision.Play();
-                        playedBefore = true;
-                        inBetweenSounds = 0;
-                    }
-                    knight.InputManager.State = Enums.CharacterStates.Idle;
-                    knight.Colliding = true;
-                    knight.AllowRight = false;
-                    knight.AllowLeft = true; 
-                }
-                inBetweenSounds += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                playedBefore = false;
+                //if (obstacle.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.None)
+                //{
+                //    knight.Colliding = false;
+                //    knight.AllowLeft = true;
+                //    knight.AllowRight = true;
+                //}
+                //else if (obstacle.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.Left)
+                //{
+                //    if (!playedBefore && inBetweenSounds >= soundTimer)
+                //    {
+                //        collision.Play();
+                //        playedBefore = true;
+                //        inBetweenSounds = 0;
+                //    }
+                //    knight.InputManager.State = Enums.CharacterStates.Idle;
+                //    knight.Colliding = true;
+                //    knight.AllowLeft = false;
+                //    knight.AllowRight = true;
+                //}
+                //else if (obstacle.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.Right)
+                //{
+                //    if (!playedBefore && inBetweenSounds >= soundTimer)
+                //    {
+                //        collision.Play();
+                //        playedBefore = true;
+                //        inBetweenSounds = 0;
+                //    }
+                //    knight.InputManager.State = Enums.CharacterStates.Idle;
+                //    knight.Colliding = true;
+                //    knight.AllowRight = false;
+                //    knight.AllowLeft = true; 
+                //}
+                //inBetweenSounds += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                //playedBefore = false;
 
-                if (endGoal.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.Right || endGoal.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.Left)
-                {
-                    closeGame = true;
-                }
+                //if (endGoal.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.Right || endGoal.Bounds.CollidesWith(knight.Bounds) == Enums.CollisionSide.Left)
+                //{
+                //    closeGame = true;
+                //}
 
             }
         }

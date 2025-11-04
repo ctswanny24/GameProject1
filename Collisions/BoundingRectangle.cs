@@ -44,7 +44,7 @@ namespace GameProject1
             Height = height;
         }
 
-        public GameProject1.Enums.CollisionSide CollidesWith(BoundingRectangle other)
+        public bool CollidesWith(BoundingRectangle other)
         {
             return CollisionHelper.Collides(this, other);
         }

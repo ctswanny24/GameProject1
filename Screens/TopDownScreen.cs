@@ -28,6 +28,7 @@ namespace GameProject1.Screens
         private SpriteBatch _spriteBatch;
         private ContentManager _content;
         private BowlingBallMan player;
+        private Villian villian;
         private SaveData _saveData;
         private readonly InputAction _pauseAction;
 
@@ -47,6 +48,7 @@ namespace GameProject1.Screens
             {
                 player = new BowlingBallMan(new Vector2(_saveData.PlayerX, _saveData.PlayerY), _saveData.PlayerHealth);
             }
+            villian = new Villian();
         }
 
         public void Initialize()
@@ -59,6 +61,7 @@ namespace GameProject1.Screens
             _spriteBatch = new SpriteBatch(_graphics);
             _tilemap.LoadContent(_game.Content);
             player.LoadContent(_game.Content);
+            villian.LoadContent(_game.Content);
             if (_content == null)
             {
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
@@ -66,6 +69,7 @@ namespace GameProject1.Screens
 
                 ScreenManager.Game.ResetElapsedTime();
             }
+
             _font = _content.Load<SpriteFont>("Fonts//Arial");
 
             base.Activate();
@@ -79,7 +83,19 @@ namespace GameProject1.Screens
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
             player.Update(gameTime);
+            foreach(Projectile p in player.Projectiles)
+            {
+                if(CollisionHelper.Collides(p.Bounds, villian.Bounds))
+                {
+                    villian.Health--;
+                }
+
+            }
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+            if(villian.Health <= 0)
+            {
+                _game.Exit();
+            }
         }
 
         public override void HandleInput(GameTime gameTime, InputState input)
@@ -98,6 +114,7 @@ namespace GameProject1.Screens
             _tilemap.Draw(gameTime, _spriteBatch);
             _spriteBatch.DrawString(_font, "Press 'F' to Save your game, or use 'ESC' to navigate to the menu and save there", new Vector2(0, _graphics.Viewport.Height - 30), Color.White);
             player.Draw(gameTime, _spriteBatch);
+            villian.Draw(gameTime, _spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
