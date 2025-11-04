@@ -71,14 +71,14 @@ namespace GameProject1
         /// <param name="content">The content manager to load</param>
         public void LoadContent(ContentManager content)
         {
-            texture = new Texture2D[]
-            {
-                content.Load<Texture2D>("FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_Idle"),
-                content.Load<Texture2D>("FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_Run"),
-                content.Load<Texture2D>("FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_TurnAround"),
-                content.Load<Texture2D>("FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_CrouchFull"),
-                content.Load<Texture2D>("FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_Attack2NoMovement")
-            };
+            //texture = new Texture2D[]
+            //{
+            //    content.Load<Texture2D>("Textures//FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_Idle"),
+            //    content.Load<Texture2D>("Textures//FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_Run"),
+            //    content.Load<Texture2D>("Textures//FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_TurnAround"),
+            //    content.Load<Texture2D>("Textures//FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_CrouchFull"),
+            //    content.Load<Texture2D>("Textures//FreeKnight_v1//Colour1//NoOutline//120x80_PNGSheets//_Attack2NoMovement")
+            //};
         }
             /// <summary>
             /// Updates the KnightSprite to know when facing a certain direction.

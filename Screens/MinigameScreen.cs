@@ -80,24 +80,24 @@ namespace GameProject1.Screens
             {
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-                backgrounds[0] = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_1");
-                backgrounds[1] = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_2");
-                backgrounds[2] = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_3");
+                //backgrounds[0] = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_1");
+                //backgrounds[1] = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_2");
+                //backgrounds[2] = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_3");
 
-                floorTexture = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//oak_woods_tileset");
+                //floorTexture = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//oak_woods_tileset");
 
-                music = content.Load<Song>("Jon Shuemaker - Autumn's Awakening");
-                collision = content.Load<SoundEffect>("collision");
-                victoryTone = content.Load<Song>("VictoryChime");
-                MediaPlayer.IsRepeating = true;
-                MediaPlayer.Volume = 0.10f;
-                MediaPlayer.Play(music);
+                //music = content.Load<Song>("Jon Shuemaker - Autumn's Awakening");
+                //collision = content.Load<SoundEffect>("collision");
+                //victoryTone = content.Load<Song>("VictoryChime");
+                //MediaPlayer.IsRepeating = true;
+                //MediaPlayer.Volume = 0.10f;
+                //MediaPlayer.Play(music);
 
-                knight.LoadContent(content);
-                obstacle.LoadContent(content);
-                endGoal.LoadContent(content);
-                arial = content.Load<SpriteFont>("arial");
-                algerian = content.Load<SpriteFont>("Algerian");
+                //knight.LoadContent(content);
+                //obstacle.LoadContent(content);
+                //endGoal.LoadContent(content);
+                //arial = content.Load<SpriteFont>("arial");
+                //algerian = content.Load<SpriteFont>("Algerian");
 
                 Thread.Sleep(1000);
 
@@ -201,52 +201,52 @@ namespace GameProject1.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
+            //ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.CornflowerBlue, 0, 0);
 
-            var spriteBatch = ScreenManager.SpriteBatch;
+            //var spriteBatch = ScreenManager.SpriteBatch;
 
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
 
-            // TODO: Add your drawing code here
-            foreach (Texture2D t in backgrounds)
-            {
-                spriteBatch.Draw(t, new Vector2(0, 0), null, Color.White, 0.0f, Vector2.Zero, 2.7f, SpriteEffects.None, 0);
-            }
+            //// TODO: Add your drawing code here
+            //foreach (Texture2D t in backgrounds)
+            //{
+            //    spriteBatch.Draw(t, new Vector2(0, 0), null, Color.White, 0.0f, Vector2.Zero, 2.7f, SpriteEffects.None, 0);
+            //}
 
 
-            obstacle.Draw(gameTime, spriteBatch);
-            endGoal.Draw(gameTime, spriteBatch);
-            knight.Draw(gameTime, spriteBatch);
-            for (int x = -10; x < graphics.Viewport.Width; x += 72)
-            {
-                spriteBatch.Draw(floorTexture, new Vector2(x, graphics.Viewport.Height - 40), new Rectangle(119, 215, 72, 20), Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
-            }
+            //obstacle.Draw(gameTime, spriteBatch);
+            //endGoal.Draw(gameTime, spriteBatch);
+            //knight.Draw(gameTime, spriteBatch);
+            //for (int x = -10; x < graphics.Viewport.Width; x += 72)
+            //{
+            //    spriteBatch.Draw(floorTexture, new Vector2(x, graphics.Viewport.Height - 40), new Rectangle(119, 215, 72, 20), Color.White, 0.0f, Vector2.Zero, 2.0f, SpriteEffects.None, 0.0f);
+            //}
 
-            if (gameTime.TotalGameTime.TotalSeconds < 30)
-            {
-                spriteBatch.DrawString(algerian, $"Get to tha shoppa", new Vector2((graphics.Viewport.Width - arial.MeasureString("Get to tha shoppa").X) / 2, 10), Color.RoyalBlue);
-                spriteBatch.DrawString(algerian, $"To win, you must get to the shop getting past that VERY devious looking rock", new Vector2((graphics.Viewport.Width - arial.MeasureString("To win, you must get to the shop getting past that VERY devious looking rock").X) / 2, graphics.Viewport.Height - 25), Color.RoyalBlue);
-            }
-            else if (gameTime.TotalGameTime.TotalSeconds >= 30)
-            {
-                spriteBatch.DrawString(algerian, $"Was this too ambiguous?", new Vector2((graphics.Viewport.Width - arial.MeasureString("Was this too ambiguous?").X) / 2, 10), Color.RoyalBlue);
-                spriteBatch.DrawString(algerian, $"You go off the screen on the left to get to the right", new Vector2((graphics.Viewport.Width - arial.MeasureString("You go off the screen on the left to get to the right").X) / 2, graphics.Viewport.Height - 25), Color.RoyalBlue);
-            }
+            //if (gameTime.TotalGameTime.TotalSeconds < 30)
+            //{
+            //    spriteBatch.DrawString(algerian, $"Get to tha shoppa", new Vector2((graphics.Viewport.Width - arial.MeasureString("Get to tha shoppa").X) / 2, 10), Color.RoyalBlue);
+            //    spriteBatch.DrawString(algerian, $"To win, you must get to the shop getting past that VERY devious looking rock", new Vector2((graphics.Viewport.Width - arial.MeasureString("To win, you must get to the shop getting past that VERY devious looking rock").X) / 2, graphics.Viewport.Height - 25), Color.RoyalBlue);
+            //}
+            //else if (gameTime.TotalGameTime.TotalSeconds >= 30)
+            //{
+            //    spriteBatch.DrawString(algerian, $"Was this too ambiguous?", new Vector2((graphics.Viewport.Width - arial.MeasureString("Was this too ambiguous?").X) / 2, 10), Color.RoyalBlue);
+            //    spriteBatch.DrawString(algerian, $"You go off the screen on the left to get to the right", new Vector2((graphics.Viewport.Width - arial.MeasureString("You go off the screen on the left to get to the right").X) / 2, graphics.Viewport.Height - 25), Color.RoyalBlue);
+            //}
 
-            if (gameTime.TotalGameTime.TotalSeconds > 5)
-            {
-                spriteBatch.DrawString(algerian, $"Perhaps you could think outside the box", new Vector2((graphics.Viewport.Width - arial.MeasureString("Perhaps you could think outside the box").X) / 2, 40), Color.SkyBlue);
-            }
-            if (gameTime.TotalGameTime.TotalSeconds > 16)
-            {
-                spriteBatch.DrawString(algerian, $"Turn left to go right", new Vector2((graphics.Viewport.Width - arial.MeasureString("Turn left to go right").X) / 2, 55), Color.SkyBlue);
-            }
-            if (closeGame)
-            {
-                spriteBatch.DrawString(algerian, $"You got to the shop!!! Great work!!!", new Vector2((graphics.Viewport.Width - arial.MeasureString("You got to the shop!!! Great work!!!").X) / 2, (graphics.Viewport.Height / 2)), Color.MonoGameOrange);
-                spriteBatch.DrawString(algerian, $"Returning to menu", new Vector2((graphics.Viewport.Width - arial.MeasureString("Returning to menu").X) / 2, (graphics.Viewport.Height / 2 + 30)), Color.MonoGameOrange);
-            }
-            spriteBatch.End();
+            //if (gameTime.TotalGameTime.TotalSeconds > 5)
+            //{
+            //    spriteBatch.DrawString(algerian, $"Perhaps you could think outside the box", new Vector2((graphics.Viewport.Width - arial.MeasureString("Perhaps you could think outside the box").X) / 2, 40), Color.SkyBlue);
+            //}
+            //if (gameTime.TotalGameTime.TotalSeconds > 16)
+            //{
+            //    spriteBatch.DrawString(algerian, $"Turn left to go right", new Vector2((graphics.Viewport.Width - arial.MeasureString("Turn left to go right").X) / 2, 55), Color.SkyBlue);
+            //}
+            //if (closeGame)
+            //{
+            //    spriteBatch.DrawString(algerian, $"You got to the shop!!! Great work!!!", new Vector2((graphics.Viewport.Width - arial.MeasureString("You got to the shop!!! Great work!!!").X) / 2, (graphics.Viewport.Height / 2)), Color.MonoGameOrange);
+            //    spriteBatch.DrawString(algerian, $"Returning to menu", new Vector2((graphics.Viewport.Width - arial.MeasureString("Returning to menu").X) / 2, (graphics.Viewport.Height / 2 + 30)), Color.MonoGameOrange);
+            //}
+            //spriteBatch.End();
         }
     }
 }

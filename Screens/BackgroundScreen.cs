@@ -39,14 +39,18 @@ namespace GameProject1.Screens
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            backgrounds[0] = _content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_1");
-            backgrounds[1] = _content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_2");
-            backgrounds[2] = _content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//background//background_layer_3");
+            backgrounds[0] = _content.Load<Texture2D>("Textures/OakWoodsAssets/oak_woods_v1.0/background/background_layer_1");
+            backgrounds[1] = _content.Load<Texture2D>("Textures/OakWoodsAssets/oak_woods_v1.0/background/background_layer_2");
+            backgrounds[2] = _content.Load<Texture2D>("Textures/OakWoodsAssets/oak_woods_v1.0/background/background_layer_3");
 
-            backgroundMusic = _content.Load<Song>("Hawkin - Woods");
+            backgroundMusic = _content.Load<Song>("Music/Hawkin - Woods");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(backgroundMusic);
-            //_backgroundTexture = _content.Load<Texture2D>("background");
+        }
+
+        public void LoadContent()
+        {
+
         }
 
         public override void Unload()

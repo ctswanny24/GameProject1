@@ -1,4 +1,6 @@
-﻿using GameProject1.StateManagement;
+﻿using GameProject1.Player;
+using GameProject1.Saving;
+using GameProject1.StateManagement;
 using Microsoft.Xna.Framework;
 
 namespace GameProject1.Screens
@@ -10,6 +12,7 @@ namespace GameProject1.Screens
     public class PauseMenuScreen : MenuScreen
     {
         private Game _game;
+        private BowlingBallMan _player;
 
         public PauseMenuScreen(Game game) : base("Paused")
         {
@@ -22,6 +25,29 @@ namespace GameProject1.Screens
 
             MenuEntries.Add(resumeGameMenuEntry);
             MenuEntries.Add(quitGameMenuEntry);
+        }
+
+        public PauseMenuScreen(Game game, BowlingBallMan player) : base("Paused")
+        {
+            _game = game;
+            _player = player;
+            var resumeGameMenuEntry = new MenuEntry("Resume Game");
+            var saveGameMenuEntry = new MenuEntry("Save Game");
+            var quitGameMenuEntry = new MenuEntry("Quit Game");
+
+            resumeGameMenuEntry.Selected += OnCancel;
+            saveGameMenuEntry.Selected += OnSave;
+            quitGameMenuEntry.Selected += QuitGameMenuEntrySelected;
+
+            MenuEntries.Add(resumeGameMenuEntry);
+            MenuEntries.Add(saveGameMenuEntry);
+            MenuEntries.Add(quitGameMenuEntry);
+
+        }
+
+        private void OnSave(object sender, PlayerIndexEventArgs e)
+        {
+            SaveStateManager.SaveGame(new SaveData(_player.Position.X, _player.Position.Y, _player.Health));
         }
 
         private void QuitGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)

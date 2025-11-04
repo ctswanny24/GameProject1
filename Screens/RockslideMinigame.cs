@@ -30,7 +30,7 @@ namespace GameProject1.Screens
         private float shakeIntensity = 0f;
         private float shakeDuration = 0f;
         private Random rand = new Random();
-        private float shakeInterval = 0f; 
+        private float shakeInterval = 0f;
 
         private List<Texture2D> backgrounds;
         private ContentManager content;
@@ -48,7 +48,7 @@ namespace GameProject1.Screens
 
 
         public BoundingRectangle PlayerHitbox { get; set; }
-        public PlayerSprite Player;
+        public RockslidePlayer Player;
 
 
         public RockslideMinigame(GraphicsDevice graphics, Game game)
@@ -56,7 +56,7 @@ namespace GameProject1.Screens
             _game = game;
 
             this.graphics = graphics;
-            Player = new PlayerSprite() { Position = new Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height - 86), ScreenWidth = graphics.Viewport.Width};
+            Player = new RockslidePlayer() { Position = new Vector2(graphics.Viewport.Width / 2, graphics.Viewport.Height - 86), ScreenWidth = graphics.Viewport.Width };
             backgrounds = new List<Texture2D>();
 
             _pauseAction = new InputAction(
@@ -76,25 +76,25 @@ namespace GameProject1.Screens
 
         public override void Activate()
         {
-            if (content == null)
-            {
-                content = new ContentManager(ScreenManager.Game.Services, "Content");
-                Player.LoadContent(content);
-                backgrounds.Add(content.Load<Texture2D>("CaveAssets\\Background\\Pale\\Background"));
-                backgrounds.Add(content.Load<Texture2D>("CaveAssets\\Background\\Pale\\bg"));
-                torch = content.Load<Texture2D>("CaveAssets\\Details\\torch1_2");
-                algerian = content.Load<SpriteFont>("Algerian");
-                caveGround = content.Load<Texture2D>("CaveGround");
-                rumble = content.Load<SoundEffect>("8bit_bomb_explosion");
-                song = content.Load<Song>("Oneosune - Silent Realm.mp3");
-                MediaPlayer.IsRepeating = true;
-                MediaPlayer.Volume = .5f;
-                MediaPlayer.Play(song);
+            //if (content == null)
+            //{
+            //    content = new ContentManager(ScreenManager.Game.Services, "Content");
+            //    Player.LoadContent(content);
+            //    backgrounds.Add(content.Load<Texture2D>("CaveAssets\\Background\\Pale\\Background"));
+            //    backgrounds.Add(content.Load<Texture2D>("CaveAssets\\Background\\Pale\\bg"));
+            //    torch = content.Load<Texture2D>("CaveAssets\\Details\\torch1_2");
+            //    algerian = content.Load<SpriteFont>("Algerian");
+            //    caveGround = content.Load<Texture2D>("CaveGround");
+            //    rumble = content.Load<SoundEffect>("8bit_bomb_explosion");
+            //    song = content.Load<Song>("Oneosune - Silent Realm.mp3");
+            //    MediaPlayer.IsRepeating = true;
+            //    MediaPlayer.Volume = .5f;
+            //    MediaPlayer.Play(song);
 
-                Thread.Sleep(1000);
+            //    Thread.Sleep(1000);
 
-                ScreenManager.Game.ResetElapsedTime();
-            }
+            //    ScreenManager.Game.ResetElapsedTime();
+            //}
         }
 
         public override void Deactivate()
@@ -112,7 +112,7 @@ namespace GameProject1.Screens
             base.Update(gameTime, otherScreenHasFocus, false);
             Player.Update(gameTime);
 
-            if(shakeInterval > 2.0f)
+            if (shakeInterval > 2.0f)
             {
                 rumble.Play();
                 TriggerTremor(3.5f, 0.75f);
@@ -125,7 +125,7 @@ namespace GameProject1.Screens
             }
 
             Particle[] particles = rockslide.GetParticles();
-            for(int i = 0; i < particles.Length; i++)
+            for (int i = 0; i < particles.Length; i++)
             {
                 if (Player.Bounds.CollidesWith(particles[i].bounds))
                 {
@@ -153,10 +153,10 @@ namespace GameProject1.Screens
 
                 if (beginGame)
                 {
-                    if(shakeDuration > 0)
+                    if (shakeDuration > 0)
                     {
                         shakeDuration -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        if(shakeDuration <= 0)
+                        if (shakeDuration <= 0)
                         {
                             shakeIntensity = 0f;
                         }
@@ -167,7 +167,7 @@ namespace GameProject1.Screens
                     if (gameTimer > 20.0f)
                     {
                         EndGame();
-                        if(gameTimer > 25.0f)
+                        if (gameTimer > 25.0f)
                         {
                             MediaPlayer.Stop();
                             LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(), new MainMenuScreen(_game));
@@ -193,7 +193,7 @@ namespace GameProject1.Screens
                 ScreenManager.AddScreen(new PauseMenuScreen(_game), ControllingPlayer);
             }
 
-            if(_beginGame.Occurred(input, ControllingPlayer, out player))
+            if (_beginGame.Occurred(input, ControllingPlayer, out player))
             {
                 beginGame = true;
                 rockslide.Occurring = true;
@@ -216,7 +216,7 @@ namespace GameProject1.Screens
                     Player.Direction = SpriteEffects.None;
                     Player.State = Enums.CharacterStates.Running;
                 }
-                else if(Player.State == Enums.CharacterStates.Dead)
+                else if (Player.State == Enums.CharacterStates.Dead)
                 {
                     LockedMovement = true;
                 }
@@ -246,59 +246,59 @@ namespace GameProject1.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 0, 0);
+            //    ScreenManager.GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 0, 0);
 
-            var spriteBatch = ScreenManager.SpriteBatch;
+            //    var spriteBatch = ScreenManager.SpriteBatch;
 
-            Vector2 offset = Vector2.Zero;
+            //    Vector2 offset = Vector2.Zero;
 
-            if(shakeIntensity > 0)
-            {
-                offset = new Vector2(
-                    (float)(rand.NextDouble() * 2 - 1) * shakeIntensity,
-                    (float)(rand.NextDouble() * 2 - 1) * shakeIntensity
-                    );
+            //    if(shakeIntensity > 0)
+            //    {
+            //        offset = new Vector2(
+            //            (float)(rand.NextDouble() * 2 - 1) * shakeIntensity,
+            //            (float)(rand.NextDouble() * 2 - 1) * shakeIntensity
+            //            );
+            //    }
+            //    Matrix shakeTransform = Matrix.CreateTranslation(offset.X, offset.Y, 0);
+
+            //    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, shakeTransform);
+            //    spriteBatch.Draw(backgrounds[1], new Rectangle(-20, -20, graphics.Viewport.Width + 40, graphics.Viewport.Height + 40), Color.White);
+            //    spriteBatch.Draw(backgrounds[0], new Rectangle(-20, -20, graphics.Viewport.Width + 40, graphics.Viewport.Height + 40), Color.White);
+            //    for (int i = 0; i < graphics.Viewport.Width; i = i + 63 * 3)
+            //    {
+            //        spriteBatch.Draw(torch, new Vector2(i, graphics.Viewport.Height - (63 - 15) * 3), null, Color.White, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+            //    }
+            //    spriteBatch.End();
+
+            //    spriteBatch.Begin(transformMatrix: shakeTransform);
+            //    if (!beginGame)
+            //    {
+            //        spriteBatch.DrawString(algerian, $"Press Space Bar, Enter, or the A button to start", new Vector2((graphics.Viewport.Width - algerian.MeasureString("Press Space Bar, Enter, or the A button to start").X) / 2, 10), Color.OrangeRed);
+            //    }
+
+            //    spriteBatch.DrawString(algerian, $"Time survived: {gameTimer:F2}", Vector2.Zero, Color.OrangeRed);
+            //    Player.Draw(gameTime, spriteBatch);
+            //    spriteBatch.Draw(caveGround, new Vector2(0, graphics.Viewport.Height - 32), new Rectangle(graphics.Viewport.Width, 0, graphics.Viewport.Width, 32), Color.White);
+            //    spriteBatch.End();
+
+            //    if (gameTimer > 20.0)
+            //    {
+            //        spriteBatch.Begin();
+            //        spriteBatch.DrawString(algerian, $"You win!!! Exiting to menu", new Vector2((graphics.Viewport.Width - algerian.MeasureString("You win!!! Exiting to menu").X) / 2, graphics.Viewport.Height / 2), Color.Crimson);
+            //        spriteBatch.End();
+            //    }
             }
-            Matrix shakeTransform = Matrix.CreateTranslation(offset.X, offset.Y, 0);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, shakeTransform);
-            spriteBatch.Draw(backgrounds[1], new Rectangle(-20, -20, graphics.Viewport.Width + 40, graphics.Viewport.Height + 40), Color.White);
-            spriteBatch.Draw(backgrounds[0], new Rectangle(-20, -20, graphics.Viewport.Width + 40, graphics.Viewport.Height + 40), Color.White);
-            for (int i = 0; i < graphics.Viewport.Width; i = i + 63 * 3)
+            public void EndGame()
             {
-                spriteBatch.Draw(torch, new Vector2(i, graphics.Viewport.Height - (63 - 15) * 3), null, Color.White, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-            }
-            spriteBatch.End();
-
-            spriteBatch.Begin(transformMatrix: shakeTransform);
-            if (!beginGame)
-            {
-                spriteBatch.DrawString(algerian, $"Press Space Bar, Enter, or the A button to start", new Vector2((graphics.Viewport.Width - algerian.MeasureString("Press Space Bar, Enter, or the A button to start").X) / 2, 10), Color.OrangeRed);
+                _game.Components.Remove(rockslide);
+                closeGame = true;
             }
 
-            spriteBatch.DrawString(algerian, $"Time survived: {gameTimer:F2}", Vector2.Zero, Color.OrangeRed);
-            Player.Draw(gameTime, spriteBatch);
-            spriteBatch.Draw(caveGround, new Vector2(0, graphics.Viewport.Height - 32), new Rectangle(graphics.Viewport.Width, 0, graphics.Viewport.Width, 32), Color.White);
-            spriteBatch.End();
-
-            if (gameTimer > 20.0)
+            public void TriggerTremor(float i, float d)
             {
-                spriteBatch.Begin();
-                spriteBatch.DrawString(algerian, $"You win!!! Exiting to menu", new Vector2((graphics.Viewport.Width - algerian.MeasureString("You win!!! Exiting to menu").X) / 2, graphics.Viewport.Height / 2), Color.Crimson);
-                spriteBatch.End();
+                shakeIntensity = i;
+                shakeDuration = d;
             }
-        }
-
-        public void EndGame()
-        {
-            _game.Components.Remove(rockslide);
-            closeGame = true;
-        }
-
-        public void TriggerTremor(float i, float d)
-        {
-            shakeIntensity = i;
-            shakeDuration = d;
         }
     }
-}

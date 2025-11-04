@@ -16,7 +16,7 @@ using System.Reflection.Metadata.Ecma335;
 namespace GameProject1
 {
 
-    public class PlayerSprite
+    public class RockslidePlayer
     {
 
 
@@ -75,9 +75,9 @@ namespace GameProject1
         {
             texture = new Texture2D[]
             {
-                content.Load<Texture2D>("OakWoodsAssets\\oak_woods_v1.0\\character\\char_blue"),
+                //content.Load<Texture2D>("OakWoodsAssets\\oak_woods_v1.0\\character\\char_blue"),
             };
-            heart = content.Load<Texture2D>("CaveAssets\\Items\\000_0062_heart4");
+            //heart = content.Load<Texture2D>("CaveAssets\\Items\\000_0062_heart4");
         }
 
         /// <summary>

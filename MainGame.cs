@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
+using System.IO;
 namespace GameProject1
 {
     public class MainGame : Game
@@ -17,6 +18,7 @@ namespace GameProject1
         public GraphicsDeviceManager Graphics;
         private readonly ScreenManager screenManager;
         MinigameScreen gameScreen;
+        SpriteBatch spriteBatch;
 
         public MainGame()
         {
@@ -36,7 +38,8 @@ namespace GameProject1
         private void AddInitialScreens()
         {
             screenManager.AddScreen(new BackgroundScreen(), null);
-            screenManager.AddScreen(new MainMenuScreen(this), null);        }
+            screenManager.AddScreen(new MainMenuScreen(this), null);
+        }
 
         protected override void Initialize()
         {

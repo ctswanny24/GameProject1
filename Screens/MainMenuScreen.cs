@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using GameProject1.StateManagement;
 using Microsoft.Xna.Framework.Media;
+using System.Text.Json;
+using GameProject1.Saving;
 
 namespace GameProject1.Screens
 {
@@ -14,15 +16,18 @@ namespace GameProject1.Screens
         {
             _game = game;
 
-            var playGameMenuEntry = new MenuEntry("Play Game");
+            var playGameMenuEntry = new MenuEntry("Start New Game");
+            var resumeGameMenuEntry = new MenuEntry("Load Saved Game");
             //var optionsMenuEntry = new MenuEntry("Options (Currently Under Development)");
             var exitMenuEntry = new MenuEntry("Exit");
 
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
+            resumeGameMenuEntry.Selected += LoadSavedGameEntrySelected;
             //optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
 
             MenuEntries.Add(playGameMenuEntry);
+            MenuEntries.Add(resumeGameMenuEntry);
             //MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
         }
@@ -30,7 +35,19 @@ namespace GameProject1.Screens
         private void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
             MediaPlayer.Stop();
-            RockslideMinigame newGame = new RockslideMinigame(ScreenManager.GraphicsDevice, _game);
+            TopDownScreen newGame = new TopDownScreen(ScreenManager.GraphicsDevice, _game, null);
+            //RockslideMinigame newGame = new RockslideMinigame(ScreenManager.GraphicsDevice, _game);
+            //MinigameScreen newGame = new MinigameScreen(ScreenManager.GraphicsDevice);
+            newGame.Initialize();
+            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, newGame);
+
+        }
+
+        private void LoadSavedGameEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            MediaPlayer.Stop();
+            TopDownScreen newGame = new TopDownScreen(ScreenManager.GraphicsDevice, _game, SaveStateManager.LoadGame());
+            //RockslideMinigame newGame = new RockslideMinigame(ScreenManager.GraphicsDevice, _game);
             //MinigameScreen newGame = new MinigameScreen(ScreenManager.GraphicsDevice);
             newGame.Initialize();
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, newGame);

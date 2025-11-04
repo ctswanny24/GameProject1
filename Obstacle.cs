@@ -39,7 +39,7 @@ namespace GameProject1
         /// <param name="content">The ContentManager to load with</param>
         public void LoadContent(ContentManager content)
         {
-            texture = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//decorations//rock_2");
+            //texture = content.Load<Texture2D>("OakWoodsAssets//oak_woods_v1.0//decorations//rock_2");
 
         }
 
