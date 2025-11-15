@@ -77,6 +77,18 @@
 /processorParam:Quality=Best
 /build:Sounds/collision.wav
 
+#begin Sounds/groovy-two-shoes-235244.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/groovy-two-shoes-235244.mp3
+
+#begin Sounds/groovy-two-shoes-235244.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/groovy-two-shoes-235244.mp3
+
 #begin Textures/BarryBowlingBall.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -112,6 +124,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/boulder.png
+
+#begin Textures/BowlingAlleyTilemap.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/BowlingAlleyTilemap.png
 
 #begin Textures/CaveAssets/Background/Bright/Background.png
 /importer:TextureImporter
@@ -5908,6 +5932,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/Pixel_Art_Top_Down/Texture/TX Tileset Wall.png;Textures/Pixel_Art_Top_Down/Texture/TX Tileset Wall
+
+#begin Textures/Present_Texture.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Present_Texture.png
 
 #begin Textures/ProjectileMan.png
 /importer:TextureImporter

@@ -16,6 +16,7 @@ namespace GameProject1.Screens
         private Game _game;
         private BowlingBallMan _player;
         private List<Villian> _villians;
+        private TopDownScreen _minigame;
 
         public PauseMenuScreen(Game game) : base("Paused")
         {
@@ -30,8 +31,9 @@ namespace GameProject1.Screens
             MenuEntries.Add(quitGameMenuEntry);
         }
 
-        public PauseMenuScreen(Game game, BowlingBallMan player, List<Villian> villians) : base("Paused")
+        public PauseMenuScreen(Game game, BowlingBallMan player, List<Villian> villians, TopDownScreen screen) : base("Paused")
         {
+            _minigame = screen;
             _game = game;
             _player = player;
             _villians = villians;
@@ -54,7 +56,7 @@ namespace GameProject1.Screens
             List<Tuple<float, float, bool>> villianInfo = new List<Tuple<float, float, bool>>();
             foreach (Villian v in _villians)
                 villianInfo.Add(new Tuple<float, float, bool>(v.Position.X, v.Position.Y, v.Dead));
-            SaveStateManager.SaveGame(new SaveData(_player.Position.X, _player.Position.Y, _player.Health, villianInfo));
+            SaveStateManager.SaveGame(new SaveData(_player.Position.X, _player.Position.Y, _player.Health, villianInfo, _minigame.EnemyWaveCount));
         }
 
         private void QuitGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)

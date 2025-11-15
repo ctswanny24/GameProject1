@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +17,15 @@ namespace GameProject1.Saving
 
         public int PlayerHealth { get; set; }
 
-        public SaveData(float PlayerX, float PlayerY, int PlayerHealth, List<Tuple<float, float, bool>> villians)
+        public int EnemyCount { get; set; }
+
+        public SaveData(float PlayerX, float PlayerY, int PlayerHealth, List<Tuple<float, float, bool>> villians, int enemyCount)
         {
             this.PlayerX = PlayerX;
             this.PlayerY = PlayerY;
             this.PlayerHealth = PlayerHealth;
             Villians = villians;
+            EnemyCount = enemyCount;
         }
     }
 }

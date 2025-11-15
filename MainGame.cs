@@ -53,7 +53,7 @@ namespace GameProject1
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Sienna);
+            GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
         }
     }

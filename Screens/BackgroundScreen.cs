@@ -19,7 +19,9 @@ namespace GameProject1.Screens
         private Texture2D[] backgrounds = new Texture2D[3];
         private float offsetX = 0;
         private float backgroundPos = 0;
-        private Song backgroundMusic; 
+        private Song backgroundMusic;
+        private Tilemap tilemap;
+
 
         public BackgroundScreen()
         {
@@ -39,18 +41,22 @@ namespace GameProject1.Screens
             if (_content == null)
                 _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
+            tilemap = new Tilemap("menuTileset.txt");
+            tilemap.LoadContent(_content);
+
+            /*
             backgrounds[0] = _content.Load<Texture2D>("Textures/OakWoodsAssets/oak_woods_v1.0/background/background_layer_1");
             backgrounds[1] = _content.Load<Texture2D>("Textures/OakWoodsAssets/oak_woods_v1.0/background/background_layer_2");
             backgrounds[2] = _content.Load<Texture2D>("Textures/OakWoodsAssets/oak_woods_v1.0/background/background_layer_3");
 
             backgroundMusic = _content.Load<Song>("Music/Hawkin - Woods");
+            */
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(backgroundMusic);
+            //MediaPlayer.Play(backgroundMusic);
         }
 
         public void LoadContent()
         {
-
         }
 
         public override void Unload()
@@ -87,33 +93,35 @@ namespace GameProject1.Screens
             //Background
             transform = Matrix.CreateTranslation(offsetX * 0.333f, 0, 0);
             spriteBatch.Begin(transformMatrix: transform);
-            for(int i = 0; i < 6; i++)
-            {
-                fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
-                spriteBatch.Draw(backgrounds[0], fullscreen,
-                    new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
-            }
+            tilemap.Draw(gameTime, spriteBatch);
+
+            //for(int i = 0; i < 6; i++)
+            //{
+            //    fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
+            //    spriteBatch.Draw(backgrounds[0], fullscreen,
+            //        new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+            //}
             spriteBatch.End();
 
-            transform = Matrix.CreateTranslation(offsetX * 0.666f, 0, 0);
-            spriteBatch.Begin(transformMatrix: transform);
-            for (int i = 0; i < 6; i++)
-            {
-                fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
-                spriteBatch.Draw(backgrounds[1], fullscreen,
-                    new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
-            }
-            spriteBatch.End();
+            //transform = Matrix.CreateTranslation(offsetX * 0.666f, 0, 0);
+            //spriteBatch.Begin(transformMatrix: transform);
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
+            //    spriteBatch.Draw(backgrounds[1], fullscreen,
+            //        new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+            //}
+            //spriteBatch.End();
 
-            transform = Matrix.CreateTranslation(offsetX, 0, 0);
-            spriteBatch.Begin(transformMatrix: transform);
-            for (int i = 0; i < 6; i++)
-            {
-                fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
-                spriteBatch.Draw(backgrounds[2], fullscreen,
-                    new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
-            }
-            spriteBatch.End();
+            //transform = Matrix.CreateTranslation(offsetX, 0, 0);
+            //spriteBatch.Begin(transformMatrix: transform);
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    fullscreen = new Rectangle((int)(i * backgroundLen), 0, viewport.Width, viewport.Height);
+            //    spriteBatch.Draw(backgrounds[2], fullscreen,
+            //        new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+            //}
+            //spriteBatch.End();
 
 
             //spriteBatch.End();

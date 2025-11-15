@@ -12,7 +12,7 @@ namespace GameProject1.Screens
         private Song menuSong;
         private Game _game;
 
-        public MainMenuScreen(Game game) : base("Rockslide Riot")
+        public MainMenuScreen(Game game) : base("Barry the Bowling Ball")
         {
             _game = game;
 
