@@ -41,6 +41,7 @@ namespace GameProject1.Screens
         public int EnemiesDefeated;
         public Song backgroundMusic;
 
+
         public TopDownScreen(GraphicsDevice graphics, Game game, SaveData save)
         {
             _pauseAction = new InputAction(
@@ -65,7 +66,7 @@ namespace GameProject1.Screens
                 EnemyWaveCount = 3;
                 for (int i = 0; i < EnemyWaveCount; i++)
                 {
-                    _villians.Add(new Villian(new Vector2(random.NextInt64(256, _graphics.Viewport.Width), random.NextInt64(0, _graphics.Viewport.Height - 48)), 1));
+                    _villians.Add(new Villian(new Vector2(random.NextInt64(256, _graphics.Viewport.Width - 40), random.NextInt64(0, _graphics.Viewport.Height - 48)), 1));
                 }
             }
             else
@@ -156,7 +157,7 @@ namespace GameProject1.Screens
                 EnemyWaveCount += 10;
                 for (int i = 0; i < EnemyWaveCount; i++)
                 {
-                    var v = new Villian(new Vector2(random.NextInt64(256, _graphics.Viewport.Width), random.NextInt64(0, _graphics.Viewport.Height - 48)), 1);
+                    var v = new Villian(new Vector2(random.NextInt64(256, _graphics.Viewport.Width - 40), random.NextInt64(0, _graphics.Viewport.Height - 48)), 1);
                     _villians.Add(v);
                     v.LoadContent(_content);
 
@@ -191,16 +192,16 @@ namespace GameProject1.Screens
                 }
             }
 
-            if(EnemiesDefeated >= 3 && EnemiesDefeated < 15)
-            {
-                _spriteBatch.DrawString(_font, $"Behold, the cube of (eventual) POWER (true functionality and powerup to be implemented later)", new Vector2(0, 0), Color.Gold);
-            }
+            //if(EnemiesDefeated >= 3 && EnemiesDefeated < 15)
+            //{
+            //    _spriteBatch.DrawString(_font, $"Behold, the cube of (eventual) POWER (true functionality and powerup to be implemented later)", new Vector2(0, 0), Color.Gold);
+            //}
             _spriteBatch.End();
             
-            if(EnemiesDefeated >= 3 && EnemiesDefeated < 150)
-            {
-                powerup.Draw();
-            }
+            //if(EnemiesDefeated >= 3 && EnemiesDefeated < 150)
+            //{
+            //    powerup.Draw();
+            //}
 
             base.Draw(gameTime);
         }
