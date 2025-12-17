@@ -41,4 +41,8 @@ The bowling ball asset and the projectile asset are of my own creation.
 
 man-scream-08-352438 is a royalty free sound effect published onto Pixabay for use. It was published by the account Universfield (https://pixabay.com/sound-effects/man-scream-08-352438/)
 
+bowling-strike-40456 is a free to use sound effect obtained from Pixabay uploaded by the user freesound_community (https://pixabay.com/sound-effects/bowling-strike-40456/)
+
+falling-man-scream-450793 is a free for use sound effect obtained from Pixabay uploaded by the user nematoki (https://pixabay.com/sound-effects/falling-man-scream-450793/)
+
 groovy-two-shoes-235244 is a royalty free song that was published to Pixabay for use. It was produced and uploaded to Pixabay by Wildman48 (https://pixabay.com/music/traditional-jazz-groovy-two-shoes-235244/)
