@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using GameProject1.StateManagement;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameProject1.Screens
 {
@@ -22,13 +23,17 @@ namespace GameProject1.Screens
         private bool _otherScreensAreGone;
         private readonly StateManagement.GameScreen[] _screensToLoad;
 
+        private Texture2D ControlsTexture;
+
         // Constructor is private: loading screens should be activated via the static Load method instead.
         private LoadingScreen(ScreenManager screenManager, bool loadingIsSlow, StateManagement.GameScreen[] screensToLoad)
         {
             _loadingIsSlow = loadingIsSlow;
             _screensToLoad = screensToLoad;
 
-            TransitionOnTime = TimeSpan.FromSeconds(0.5);
+            TransitionOnTime = TimeSpan.FromSeconds(1);
+
+            ControlsTexture = screenManager._content.Load<Texture2D>("Textures//Controls");
         }
 
         // Activates the loading screen.
@@ -38,7 +43,6 @@ namespace GameProject1.Screens
             // Tell all the current screens to transition off.
             foreach (var screen in screenManager.GetScreens())
                 screen.ExitScreen();
-
             // Create and activate the loading screen.
             var loadingScreen = new LoadingScreen(screenManager, loadingIsSlow, screensToLoad);
 
@@ -89,7 +93,7 @@ namespace GameProject1.Screens
                 var spriteBatch = ScreenManager.SpriteBatch;
                 var font = ScreenManager.Font;
 
-                const string message = "Loading...";
+                const string message = "Line those thugs up and knock 'em down!!!";
 
                 // Center the text in the viewport.
                 var viewport = ScreenManager.GraphicsDevice.Viewport;

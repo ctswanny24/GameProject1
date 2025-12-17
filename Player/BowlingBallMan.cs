@@ -1,4 +1,5 @@
 ﻿using GameProject1.Saving;
+using GameProject1.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,16 +26,27 @@ namespace GameProject1.Player
         public BoundingRectangle Bounds;
         public List<Texture2D> Sprites;
         public List<Projectile> Projectiles;
+        public List<ShotputProjectile> ShotputProjectiles;
         public int Health;
+        public int Score = 0;
 
         public ContentManager Content;
         public float chargeTime;
+
+        public int ShotsInFrame = 2;
+        public int Frame = 1;
+
+        public bool Bowling = false;
+        public bool Chucking = false;
+        private float frameDuration = 0.5f;
+        private float frameTimer = 0.0f;
 
         public BowlingBallMan(GraphicsDevice graphics)
         {
             _graphics = graphics;
             Sprites = new List<Texture2D>();
             Projectiles = new List<Projectile>();
+            ShotputProjectiles = new List<ShotputProjectile>();
             Health = 3;
             Bounds = new BoundingRectangle(new Vector2(Position.X, Position.Y), _spriteWidth, _spriteHeight);
         }
@@ -44,6 +56,7 @@ namespace GameProject1.Player
             _graphics = graphics;
             Sprites = new List<Texture2D>();
             Projectiles = new List<Projectile>();
+            ShotputProjectiles = new List<ShotputProjectile>();
             Position = position;
             Health = health;
             Bounds = new BoundingRectangle(new Vector2(Position.X, Position.Y), _spriteWidth, _spriteHeight);
@@ -55,16 +68,26 @@ namespace GameProject1.Player
             Content = content;
             Sprites.Add(content.Load<Texture2D>("Textures//BarryBowlingBall"));
             Sprites.Add(content.Load<Texture2D>("Textures//CaveAssets//Items//000_0060_heart6"));
+            Sprites.Add(content.Load<Texture2D>("Textures//BarryBowling"));
+            Sprites.Add(content.Load<Texture2D>("Textures//BarryChucking"));
         }
 
         public void Update(GameTime gameTime)
         {
+            if (Bowling || Chucking)
+            {
+                frameTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
             HandleInput();
             List<Projectile> toRemove = new List<Projectile>();
             foreach(Projectile p in Projectiles)
             {
                 p.Update(gameTime);
-                if(p.Position.X > _graphics.Viewport.Width + 48)
+                if(p.Position.X >= _graphics.Viewport.Width + 48)
+                {
+                    p.Offscreen = true;
+                }
+                if(p.Position.X > _graphics.Viewport.Width + 48 && p.ComboScored)
                 {
                     toRemove.Add(p);
                     break;
@@ -74,14 +97,44 @@ namespace GameProject1.Player
             {
                 Projectiles.Remove(p);
             }
+            List<ShotputProjectile> sToRemove = new List<ShotputProjectile>();
+            foreach(ShotputProjectile p in ShotputProjectiles)
+            {
+                p.Update(gameTime);
+                if (p.IsFinished && p.ComboScored)
+                {
+                    sToRemove.Add(p);
+                    break;
+                }
+            }
+            foreach(ShotputProjectile p in sToRemove)
+            {
+                ShotputProjectiles.Remove(p);
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprites[0], Position, Color.White);
-            foreach(Projectile p in Projectiles)
+            if (!Bowling && !Chucking)
+            {
+                spriteBatch.Draw(Sprites[0], Position, Color.White);
+            }
+            else if (Bowling)
+            {
+                spriteBatch.Draw(Sprites[2], Position, Color.White);
+            }
+            else if (Chucking)
+            {
+                spriteBatch.Draw(Sprites[3], Position, Color.White);
+
+            }
+            foreach (Projectile p in Projectiles)
             {
                 p.Draw(gameTime, spriteBatch);
+            }
+            foreach(ShotputProjectile p in ShotputProjectiles)
+            {
+                p.Draw(spriteBatch);
             }
             //for(int i = Health; i > 0; i--)
             //{
@@ -105,7 +158,7 @@ namespace GameProject1.Player
             {
                 Position += new Vector2(-5, 0);
             }
-            if (state.IsKeyDown(Keys.D) && Position.X < _graphics.Viewport.Width - 48)
+            if (state.IsKeyDown(Keys.D) && Position.X < _graphics.Viewport.Width - _spriteWidth)
             {
                 Position += new Vector2(5, 0);
             }
@@ -121,6 +174,20 @@ namespace GameProject1.Player
             if ((_mouseState.LeftButton == ButtonState.Pressed && _prevMouseState.LeftButton != ButtonState.Pressed) || (state.IsKeyDown(Keys.Space) && !_prevKeyboardState.IsKeyDown(Keys.Space)))
             {
                 Projectiles.Add(new Projectile(Position, Content));
+                Bowling = true;
+            }
+
+            if ((_mouseState.RightButton == ButtonState.Pressed && _prevMouseState.RightButton != ButtonState.Pressed) || (state.IsKeyDown(Keys.E) && !_prevKeyboardState.IsKeyDown(Keys.E)))
+            {
+                ShotputProjectiles.Add(new ShotputProjectile(Position, 300, 100, 1, Content));
+                Chucking = true;
+            }
+
+            else if((Bowling || Chucking) && frameTimer >= frameDuration)
+            {
+                Bowling = false;
+                Chucking = false;
+                frameTimer = 0;
             }
         }
     }

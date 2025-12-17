@@ -15,7 +15,7 @@ namespace GameProject1.StateManagement
         private readonly List<GameScreen> _screens = new List<GameScreen>();
         private readonly List<GameScreen> _tmpScreensList = new List<GameScreen>();
 
-        private readonly ContentManager _content;
+        public readonly ContentManager _content;
         private readonly InputState _input = new InputState();
 
         private bool _isInitialized;

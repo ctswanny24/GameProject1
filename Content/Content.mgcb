@@ -71,23 +71,47 @@
 /processorParam:Quality=Best
 /build:Sounds/8bit_bomb_explosion.wav
 
+#begin Sounds/bowling-strike-40456.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/bowling-strike-40456.wav
+
 #begin Sounds/collision.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/collision.wav
 
-#begin Sounds/groovy-two-shoes-235244.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin Sounds/falling-man-scream-450793.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/groovy-two-shoes-235244.mp3
+/build:Sounds/falling-man-scream-450793.wav
 
 #begin Sounds/groovy-two-shoes-235244.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sounds/groovy-two-shoes-235244.mp3
+
+#begin Sounds/man-scream-08-352438.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/man-scream-08-352438.wav
+
+#begin Textures/BarryBowling.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/BarryBowling.png
 
 #begin Textures/BarryBowlingBall.png
 /importer:TextureImporter
@@ -100,6 +124,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/BarryBowlingBall.png
+
+#begin Textures/BarryChucking.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/BarryChucking.png
 
 #begin Textures/blank.png
 /importer:TextureImporter
@@ -136,6 +172,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/BowlingAlleyTilemap.png
+
+#begin Textures/BrandonBowlingBall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/BrandonBowlingBall.png
 
 #begin Textures/CaveAssets/Background/Bright/Background.png
 /importer:TextureImporter
@@ -2668,6 +2716,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/CollisionBox_Knight.png
+
+#begin Textures/Controls.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Controls.png
 
 #begin Textures/EvilBowlingPin.png
 /importer:TextureImporter
@@ -5956,6 +6016,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/ProjectileMan.png
+
+#begin Textures/SecondaryFire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/SecondaryFire.png
+
+#begin Textures/Shockwave.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Shockwave.png
 
 #begin Textures/shotput.png
 /importer:TextureImporter

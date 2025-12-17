@@ -19,8 +19,22 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace GameProject1.Screens
 {
+    public enum ScoringType
+    {
+        Single = 1,
+        HalfStrike = 5,
+        Strike = 10,
+        Double = 20,
+        Turkey = 30,
+        Hambone = 40,
+    }
+
     public class TopDownScreen : GameScreen
     {
+        private float shakeIntensity = 0f;
+        private float shakeDuration = 0f;
+        private float shakeInterval = 0f;
+
         private Random random = new Random();
         private GraphicsDevice _graphics;
         private SpriteFont _font;
@@ -40,7 +54,11 @@ namespace GameProject1.Screens
         public int EnemyWaveCount;
         public int EnemiesDefeated;
         public Song backgroundMusic;
+        private SoundEffect bowlingPinSE;
+        private Texture2D controlsTexture;
 
+        public int Score = 0;
+        public int HighestCombo = 0;
 
         public TopDownScreen(GraphicsDevice graphics, Game game, SaveData save)
         {
@@ -52,7 +70,7 @@ namespace GameProject1.Screens
             _saveData = save;
             if(_saveData == null)
             {
-                player = new BowlingBallMan(_graphics);
+                player = new BowlingBallMan(_graphics) { Position = new Vector2(120, graphics.Viewport.Height / 2)};
                 powerup = new Cube(game);
             }
             else
@@ -63,10 +81,12 @@ namespace GameProject1.Screens
             _villians = new List<Villian>();
             if(save == null)
             {
-                EnemyWaveCount = 3;
+                EnemyWaveCount = 10;
                 for (int i = 0; i < EnemyWaveCount; i++)
                 {
-                    _villians.Add(new Villian(new Vector2(random.NextInt64(256, _graphics.Viewport.Width - 40), random.NextInt64(0, _graphics.Viewport.Height - 48)), 1));
+                    var v = new Villian(_graphics.Viewport.Width - ((float)random.NextInt64(0, 10)), (int)random.NextInt64(0, 5), random);
+                    v = CreateNoOverlapVillians(v);
+                    _villians.Add(v);
                 }
             }
             else
@@ -104,6 +124,8 @@ namespace GameProject1.Screens
             _font = _content.Load<SpriteFont>("Fonts//Arial");
             powerup.LoadContent(_content, _graphics);
             backgroundMusic = _content.Load<Song>("Sounds//groovy-two-shoes-235244");
+            bowlingPinSE = _content.Load<SoundEffect>("Sounds//bowling-strike-40456");
+            controlsTexture = _content.Load<Texture2D>("Textures//Controls");
             MediaPlayer.Volume = 0.15f;
             MediaPlayer.Play(backgroundMusic);
             base.Activate();
@@ -126,15 +148,63 @@ namespace GameProject1.Screens
 
 
             player.Update(gameTime);
-            foreach(Villian v in _villians)
+
+            if (shakeDuration > 0)
             {
+                shakeDuration -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (shakeDuration <= 0)
+                {
+                    shakeIntensity = 0f;
+                }
+            }
+
+            foreach (Villian v in _villians)
+            {
+                v.Update(gameTime);
+                foreach(ShotputProjectile p in player.ShotputProjectiles)
+                {
+                    if(p.IsFinished && !p.ComboScored)
+                    {
+                        CalcScore(p.EnemiesDefeated);
+                        p.ComboScored = true;
+                    }
+
+
+                    if(p.HasLanded && p.HasLandedBefore)
+                    {
+                        TriggerTremor(2.0f, 0.1f);
+                    }
+
+                    if (CollisionHelper.Collides(p.Bounds, v.Bounds) && v.Dead != true)
+                    {
+                        p.EnemiesDefeated++;
+                        EnemiesDefeated++;
+                        v.Dead = true;
+                        if (p.EnemiesDefeated >= 5 && !p.SoundPlaying)
+                        {
+                            bowlingPinSE.Play();
+                            p.SoundPlaying = true;
+                        }
+
+                    }
+                }
                 foreach(Projectile p in player.Projectiles)
                 {
+                    if (p.Offscreen && !p.ComboScored)
+                    {
+                        CalcScore(p.EnemiesDestroyed);
+                        p.ComboScored = true;
+                    }
                     if (CollisionHelper.Collides(p.Bounds, v.Bounds) && v.Dead != true)
                     {
                         EnemiesDefeated++;
                         p.EnemiesDestroyed++;
                         v.Dead = true;
+                        if(p.EnemiesDestroyed >= 5 && !p.SoundPlaying)
+                        {
+                            bowlingPinSE.Play();
+                            p.SoundPlaying = true;
+                        }
                     } 
                 }
             }
@@ -155,9 +225,11 @@ namespace GameProject1.Screens
 
                 //}
                 EnemyWaveCount += 10;
+
                 for (int i = 0; i < EnemyWaveCount; i++)
                 {
-                    var v = new Villian(new Vector2(random.NextInt64(256, _graphics.Viewport.Width - 40), random.NextInt64(0, _graphics.Viewport.Height - 48)), 1);
+                    var v = new Villian(_graphics.Viewport.Width + ((float)random.NextInt64(0, 50)), (int)random.NextInt64(0, 5), random);
+                    v = CreateNoOverlapVillians(v);
                     _villians.Add(v);
                     v.LoadContent(_content);
 
@@ -180,9 +252,24 @@ namespace GameProject1.Screens
         public override void Draw(GameTime gameTime)
         {
             _game.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-            _spriteBatch.Begin();
+
+            Vector2 offset = Vector2.Zero;
+
+
+            if(shakeIntensity > 0)
+            {
+                offset = new Vector2(
+                      (float)(random.NextDouble() * 2 - 1) * shakeIntensity,
+                      (float)(random.NextDouble() * 2 - 1) * shakeIntensity
+                      );
+                }
+                Matrix shakeTransform = Matrix.CreateTranslation(offset.X, offset.Y, 0);
+
+            _spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, shakeTransform);
+
             _tilemap.Draw(gameTime, _spriteBatch);
-            _spriteBatch.DrawString(_font, $"You've defeated {EnemiesDefeated} evil bowling pins", new Vector2(10, _graphics.Viewport.Height - 30), Color.White);
+            _spriteBatch.DrawString(_font, $"Score: {Score}", new Vector2(10, _graphics.Viewport.Height - 30), Color.White);
+            _spriteBatch.DrawString(_font, $"Highest Combo {HighestCombo}", new Vector2(10, _graphics.Viewport.Height - 50), Color.White);
             player.Draw(gameTime, _spriteBatch);
             if(_villians.Count != 0)
             {
@@ -196,6 +283,15 @@ namespace GameProject1.Screens
             //{
             //    _spriteBatch.DrawString(_font, $"Behold, the cube of (eventual) POWER (true functionality and powerup to be implemented later)", new Vector2(0, 0), Color.Gold);
             //}
+            
+            _spriteBatch.End();
+
+
+
+            _spriteBatch.Begin();
+            
+            _spriteBatch.Draw(controlsTexture, Vector2.Zero, Color.White);
+
             _spriteBatch.End();
             
             //if(EnemiesDefeated >= 3 && EnemiesDefeated < 150)
@@ -203,7 +299,49 @@ namespace GameProject1.Screens
             //    powerup.Draw();
             //}
 
-            base.Draw(gameTime);
+            base.Draw(gameTime);            
+
         }
+
+        public Villian CreateNoOverlapVillians(Villian v)
+        {
+            foreach (Villian vil in _villians)
+            {
+                while (CollisionHelper.Collides(vil.Bounds, v.Bounds))
+                {
+                    v = new Villian(_graphics.Viewport.Width + ((float)random.NextInt64(0, 100)), (int)random.NextInt64(0, 5), random);
+                }
+            }
+            return v;
+        }
+
+        public void CalcScore(int hits)
+        {
+            if(hits > HighestCombo)
+            {
+                HighestCombo = hits;
+            }
+
+            if (hits <= 0)
+                return;
+            Score += hits;
+            if (hits >= (int)ScoringType.Hambone)
+                Score += 160;
+            else if (hits >= (int)ScoringType.Turkey)
+                Score += 80;
+            else if (hits >= (int)ScoringType.Double)
+                Score += 40;
+            else if (hits >= (int)ScoringType.Strike)
+                Score += 20;
+            else if (hits >= (int)ScoringType.HalfStrike)
+                Score += 10;
+        }
+
+        public void TriggerTremor(float i, float d)
+        {
+            shakeIntensity = i;
+            shakeDuration = d;
+        }
+
     }
 }
